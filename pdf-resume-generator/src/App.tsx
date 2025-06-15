@@ -1,5 +1,7 @@
 import './App.css'
 import React, {useState} from 'react';
+import SkillsInput from './components/SkillsInput';
+import EducationInput from './components/EducationInput';
 
 function App() {
   const [resumeData, setResumeData] = useState({
@@ -7,12 +9,8 @@ function App() {
     email: '',
     phone: '',
     professionalSummary: '',
-    skills: '',
-    education: {
-      school: '',
-      degree: '',
-      graduationDate: '',
-    },
+    skills: [] as string[],
+    education: [] as { school: string; degree: string; graduationDate: string }[],
     // Add more fields as needed
   });
 
@@ -79,70 +77,14 @@ function App() {
             </div>
                 
               
-              <div className="form-group p-4 border-gray-200">
-                <label className='font-bold' htmlFor="skills">Skills (optional)</label>
-                <input 
-                className="m-2 p-2 border-b-2 border-gray-400 focus:border-blue-600 outline-none bg-transparent" 
-                type="text" 
-                id="skills" 
-                name="skills" 
-                onChange={(e) => setResumeData({...resumeData, skills: e.target.value})}
-                value={resumeData.skills} />
-              </div>
-              <div className="border-2 border-gray-400">
-                <h3 className="text-lg font-semibold p-4 bg-gray-200 text-blue-600 border-b-1 border-gray-400">Education</h3>
-                <div className="form-group p-4 border-gray-200">
-                <label className='font-bold' htmlFor="educationSchool">School</label>
-                <input 
-                  className="m-2 p-2 border-b-2 border-gray-400 focus:border-blue-600 outline-none bg-transparent" 
-                  type="text" 
-                  id="educationSchool" 
-                  name="educationSchool" 
-                  onChange={(e) => setResumeData({
-                  ...resumeData, 
-                  education: {
-                    ...resumeData.education,
-                    school: e.target.value
-                  }
-                  })}
-                  value={resumeData.education.school}
-                />
-                </div>
-                <div className="form-group p-4 border-gray-200">
-                <label className='font-bold' htmlFor="educationDegree">Degree</label>
-                <input 
-                  className="m-2 p-2 border-b-2 border-gray-400 focus:border-blue-600 outline-none bg-transparent" 
-                  type="text" 
-                  id="educationDegree" 
-                  name="educationDegree" 
-                  onChange={(e) => setResumeData({
-                  ...resumeData, 
-                  education: {
-                    ...resumeData.education,
-                    degree: e.target.value
-                  }
-                  })}
-                  value={resumeData.education.degree}
-                />
-                </div>
-                <div className="form-group p-4 border-gray-200">
-                <label className='font-bold' htmlFor="educationGraduationDate">Graduation Date</label>
-                <input 
-                  className="m-2 p-2 border-b-2 border-gray-400 focus:border-blue-600 outline-none bg-transparent" 
-                  type="text" 
-                  id="educationGraduationDate" 
-                  name="educationGraduationDate" 
-                  onChange={(e) => setResumeData({
-                  ...resumeData, 
-                  education: {
-                    ...resumeData.education,
-                    graduationDate: e.target.value
-                  }
-                  })}
-                  value={resumeData.education.graduationDate}
-                />
-                </div>
-              </div>
+              <SkillsInput
+                skills={resumeData.skills}
+                setSkills={(skills) => setResumeData({ ...resumeData, skills })}
+              />
+              <EducationInput
+                education={resumeData.education}
+                setEducation={(education) => setResumeData({ ...resumeData, education })}
+              />
                 
               {/* Add more fields as needed */}
                 <button
@@ -155,17 +97,54 @@ function App() {
           </div>
         </div>
         <div className="w-1/2 p-8 bg-gray-50 border-l border-gray-200">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Output</h2>
-          <p className="text-gray-600 mb-4">Your generated resume will appear here.</p>
-          <div className="resume-output p-4 border border-gray-200 bg-white rounded shadow">
-            <h3 className="text-xl font-bold mb-2">{resumeData.name || 'Your Name'}</h3>
-            <p className="text-gray-700 mb-1">{resumeData.email || 'Your Email'}</p>
-            <p className="text-gray-700 mb-1">{resumeData.phone || 'Your Phone'}</p>
-            <p className="text-gray-700 mb-1">{resumeData.professionalSummary || 'Your Professional Summary'}</p>
-            {/* Add more fields as needed */}
-            <p className="text-gray-500">This is a placeholder for your resume content.</p>
-        </div>
+  <h2 className="text-2xl font-semibold text-gray-800 mb-4">Output</h2>
+  <p className="text-gray-600 mb-4">Your generated resume will appear here.</p>
+  <div className="resume-output p-6 border border-gray-200 bg-white rounded shadow space-y-6">
+    {/* Personal Information */}
+    <div>
+      <h3 className="text-xl font-bold text-gray-800 mb-2">Personal Information</h3>
+      <p className="text-gray-700"><strong>Name:</strong> {resumeData.name || 'Your Name'}</p>
+      <p className="text-gray-700"><strong>Email:</strong> {resumeData.email || 'Your Email'}</p>
+      <p className="text-gray-700"><strong>Phone:</strong> {resumeData.phone || 'Your Phone'}</p>
+    </div>
+
+    {/* Professional Summary */}
+    {resumeData.professionalSummary && (
+      <div>
+        <h3 className="text-xl font-bold text-gray-800 mb-2">Professional Summary</h3>
+        <p className="text-gray-700">{resumeData.professionalSummary}</p>
       </div>
+    )}
+
+    {/* Skills */}
+    {resumeData.skills.length > 0 && (
+      <div>
+        <h3 className="text-xl font-bold text-gray-800 mb-2">Skills</h3>
+        <ul className="list-disc list-inside text-gray-700">
+          {resumeData.skills.map((skill, index) => (
+            <li key={index}>{skill}</li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    {/* Education */}
+<div>
+  {resumeData.education.length > 0 && (
+    <>
+      <h3 className="text-xl font-bold text-gray-800 mb-2">Education</h3>
+      {resumeData.education.map((entry, index) => (
+        <div key={index} className="mb-4">
+          <p className="text-gray-700"><strong>School:</strong> {entry.school || 'Your School'}</p>
+          <p className="text-gray-700"><strong>Degree:</strong> {entry.degree || 'Your Degree'}</p>
+          <p className="text-gray-700"><strong>Graduation Date:</strong> {entry.graduationDate || 'Your Graduation Date'}</p>
+        </div>
+      ))}
+    </>
+  )}
+</div>
+  </div>
+</div>
       </div>
     </>
   )
