@@ -23,7 +23,7 @@ const SkillsInput: React.FC<SkillsInputProps> = ({ skills, setSkills }) => {
 
   return (
     <div className="my-4 form-group border-2 border-gray-400">
-      <h3 className="text-lg font-semibold p-4 bg-gray-200 text-blue-600 border-b-1 border-gray-400">Skills (optional)</h3>
+      <h3 className="text-lg font-semibold p-4 bg-gray-200 text-blue-600 border-b-1 border-gray-400">Skills</h3>
       {skills.map((skill, index) => (
         <div key={index} className="flex items-center mb-2">
           <input

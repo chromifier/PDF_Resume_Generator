@@ -30,7 +30,7 @@ const EducationInput: React.FC<EducationInputProps> = ({ education, setEducation
   return (
     <div className="form-group border-gray-400 border-2">
       <h3 className="text-lg font-semibold p-4 bg-gray-200 text-blue-600 border-b-1 border-gray-400">
-        Education (Optional)
+        Education
       </h3>
       {education.map((entry, index) => (
         <div key={index} className="mb-4 border-b border-gray-300 pb-4">
