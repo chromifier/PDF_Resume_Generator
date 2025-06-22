@@ -23,7 +23,7 @@ function App() {
       position: string;
       startDate: string;
       endDate: string;
-      description: string;
+      description: string[];
     }[],
     projects: [] as { title: string; description: string }[],
     skills: [] as string[],
@@ -225,11 +225,25 @@ function App() {
                   <span className="text-gray-700">|</span>
                 )}
                 <p className="text-gray-700">
-                  {resumeData.linkedin || "Your LinkedIn"}
+                  <a
+                    href={resumeData.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 underline"
+                  >
+                    LinkedIn
+                  </a>
                 </p>
                 {resumeData.github && <span className="text-gray-700">|</span>}
                 <p className="text-gray-700">
-                  {resumeData.github || "Your GitHub"}
+                  <a
+                    href={resumeData.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 underline"
+                  >
+                    GitHub
+                  </a>
                 </p>
               </div>
             </div>
@@ -252,24 +266,31 @@ function App() {
                 <h3 className="text-xl font-bold text-gray-800 mb-2">
                   Professional Experience
                 </h3>
+                <hr />
                 {resumeData.workExperience.map((entry, index) => (
-                  <div key={index} className="mb-4">
+                  <div key={index} className="my-2">
                     <div className="flex flex-row gap-2">
-                      <p className="text-gray-700 font-bold">
+                      <p className="text-gray-700 font-bold text-sm">
                         {entry.company || "Your Company"}
                       </p>
-                      <span className="text-gray-700 font-bold">|</span>
-                      <p className="text-gray-700 font-bold">
+                      <span className="text-gray-700 font-bold text-sm">|</span>
+                      <p className="text-gray-700 font-bold text-sm">
                         {entry.position || "Your Position"}
                       </p>
-                      <p className="ml-auto text-right text-gray-700">
+                      <p className="ml-auto text-right text-gray-700 text-sm italic">
                         {entry.startDate || "Start Date"} -{" "}
                         {entry.endDate || "Present"}
                       </p>
                     </div>
-                    <p className="text-gray-700 flex flex-col">
-                      {entry.description || "Description"}
-                    </p>
+                    <ul className="list-disc list-inside text-gray-700 text-sm">
+                      {entry.description && entry.description.length > 0 ? (
+                        entry.description.map((desc, i) => (
+                          <li key={i}>{desc}</li>
+                        ))
+                      ) : (
+                        <li>Description</li>
+                      )}
+                    </ul>
                   </div>
                 ))}
               </div>

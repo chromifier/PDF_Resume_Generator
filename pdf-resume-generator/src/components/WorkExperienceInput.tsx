@@ -5,7 +5,7 @@ interface WorkExperience {
   position: string;
   startDate: string;
   endDate: string;
-  description: string;
+  description: string[];
 }
 
 interface WorkExperienceInputProps {
@@ -38,7 +38,7 @@ const WorkExperienceInput: React.FC<WorkExperienceInputProps> = ({
         position: "",
         startDate: "",
         endDate: "",
-        description: "",
+        description: [],
       },
     ]);
   };
@@ -120,19 +120,61 @@ const WorkExperienceInput: React.FC<WorkExperienceInputProps> = ({
             />
           </div>
           <div className="form-group">
-            <label className="font-bold" htmlFor={`workDescription-${index}`}>
-              Description
-            </label>
-            <textarea
-              className="m-2 p-2 border-2 border-gray-400 focus:border-blue-600 outline-none bg-transparent w-full"
-              id={`workDescription-${index}`}
-              placeholder="Description of your role and responsibilities"
-              rows={3}
-              value={entry.description}
-              onChange={(e) =>
-                handleWorkExperienceChange(index, "description", e.target.value)
-              }
-            />
+            <label className="font-bold">Descriptions</label>
+            {entry.description.map((desc, descIdx) => (
+              <div key={descIdx} className="flex items-center mb-2">
+                <ul className="list-disc list-inside flex-1">
+                  <li className="ml-4">
+                    <input
+                      className="m-2 p-2 border-b-1 border-gray-400 focus:border-blue-600 outline-none bg-transparent w-full"
+                      type="text"
+                      placeholder={`Description ${descIdx + 1}`}
+                      value={desc}
+                      onChange={(e) => {
+                        const updatedDescriptions = [...entry.description];
+                        updatedDescriptions[descIdx] = e.target.value;
+                        handleWorkExperienceChange(
+                          index,
+                          "description",
+                          updatedDescriptions as any
+                        );
+                      }}
+                    />
+                  </li>
+                </ul>
+                <button
+                  type="button"
+                  className="ml-2 text-red-500 hover:text-red-700"
+                  onClick={() => {
+                    const updatedDescriptions = entry.description.filter(
+                      (_, i) => i !== descIdx
+                    );
+                    handleWorkExperienceChange(
+                      index,
+                      "description",
+                      updatedDescriptions as any
+                    );
+                  }}
+                  aria-label="Remove description"
+                >
+                  &times;
+                </button>
+              </div>
+            ))}
+            <button
+              type="button"
+              className="mt-2 text-blue-600 hover:text-blue-800 font-semibold"
+              onClick={() => {
+                const updatedDescriptions = [...entry.description, ""];
+                handleWorkExperienceChange(
+                  index,
+                  "description",
+                  updatedDescriptions as any
+                );
+              }}
+            >
+              Add Description
+            </button>
           </div>
           <button
             type="button"
