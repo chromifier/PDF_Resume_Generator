@@ -120,14 +120,15 @@ const WorkExperienceInput: React.FC<WorkExperienceInputProps> = ({
             />
           </div>
           <div className="form-group">
-            <label className="font-bold">Descriptions</label>
+            <label className="font-bold p-2 w-full block">
+              Responsibilities
+            </label>
             {entry.description.map((desc, descIdx) => (
               <div key={descIdx} className="flex items-center mb-2">
-                <ul className="list-disc list-inside flex-1">
-                  <li className="ml-4">
-                    <input
-                      className="m-2 p-2 border-b-1 border-gray-400 focus:border-blue-600 outline-none bg-transparent w-full"
-                      type="text"
+                <ul className="list-inside flex-1">
+                  <li className="list-disc flex items-center">
+                    <textarea
+                      className="p-2 border-b-1 border-gray-400 focus:border-blue-600 outline-none bg-transparent w-full resize-none"
                       placeholder={`Description ${descIdx + 1}`}
                       value={desc}
                       onChange={(e) => {
@@ -139,12 +140,13 @@ const WorkExperienceInput: React.FC<WorkExperienceInputProps> = ({
                           updatedDescriptions as any
                         );
                       }}
+                      rows={2}
                     />
                   </li>
                 </ul>
                 <button
                   type="button"
-                  className="ml-2 text-red-500 hover:text-red-700"
+                  className="ml-2 text-red-500 hover:text-red-700 text-lg cursor-pointer font-bold"
                   onClick={() => {
                     const updatedDescriptions = entry.description.filter(
                       (_, i) => i !== descIdx
@@ -163,7 +165,7 @@ const WorkExperienceInput: React.FC<WorkExperienceInputProps> = ({
             ))}
             <button
               type="button"
-              className="mt-2 text-blue-600 hover:text-blue-800 font-semibold"
+              className="block cursor-pointer mt-2 text-blue-600 hover:text-blue-800 font-semibold p-4"
               onClick={() => {
                 const updatedDescriptions = [...entry.description, ""];
                 handleWorkExperienceChange(
@@ -173,16 +175,18 @@ const WorkExperienceInput: React.FC<WorkExperienceInputProps> = ({
                 );
               }}
             >
-              Add Description
+              Add Responsibility
             </button>
           </div>
-          <button
-            type="button"
-            className="mt-2 cursor-pointer text-red-500 hover:text-red-700"
-            onClick={() => removeWorkExperience(index)}
-          >
-            Remove
-          </button>
+          {/* {entry.description.length > 0 && (
+            <button
+              type="button"
+              className="mt-2 cursor-pointer text-red-500 hover:text-red-700"
+              onClick={() => removeWorkExperience(index)}
+            >
+              Remove Responsibility
+            </button>
+          )} */}
         </div>
       ))}
       <button

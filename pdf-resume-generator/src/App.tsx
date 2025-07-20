@@ -5,30 +5,112 @@ import EducationInput from "./components/EducationInput";
 import WorkExperienceInput from "./components/WorkExperienceInput";
 
 function App() {
+  // const [resumeData, setResumeData] = useState({
+  //   name: "",
+  //   email: "",
+  //   phone: "",
+  //   location: "",
+  //   linkedin: "",
+  //   github: "",
+  //   professionalSummary: "",
+  //   education: [] as {
+  //     school: string;
+  //     degree: string;
+  //     graduationDate: string;
+  //   }[],
+  //   workExperience: [] as {
+  //     company: string;
+  //     position: string;
+  //     startDate: string;
+  //     endDate: string;
+  //     description: string[];
+  //   }[],
+  //   projects: [] as { title: string; description: string }[],
+  //   skills: [] as string[],
+  //   certifications: [] as { title: string; issuer: string; date: string }[],
+  //   // Add more fields as needed
+  // });
+
   const [resumeData, setResumeData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    location: "",
-    linkedin: "",
-    github: "",
-    professionalSummary: "",
-    education: [] as {
-      school: string;
-      degree: string;
-      graduationDate: string;
-    }[],
-    workExperience: [] as {
-      company: string;
-      position: string;
-      startDate: string;
-      endDate: string;
-      description: string[];
-    }[],
-    projects: [] as { title: string; description: string }[],
-    skills: [] as string[],
-    certifications: [] as { title: string; issuer: string; date: string }[],
-    // Add more fields as needed
+    name: "Jane Doe",
+    email: "jane.doe@email.com",
+    phone: "555-123-4567",
+    location: "New York, NY",
+    linkedin: "https://www.linkedin.com/in/janedoe",
+    github: "https://github.com/janedoe",
+    professionalSummary:
+      "Results-driven software engineer with 5+ years of experience designing, developing, and deploying scalable web applications. Passionate about clean code and innovative solutions.",
+    education: [
+      {
+        school: "Massachusetts Institute of Technology",
+        degree: "B.S. in Computer Science",
+        graduationDate: "May 2018",
+      },
+      {
+        school: "Stanford University",
+        degree: "M.S. in Artificial Intelligence",
+        graduationDate: "June 2020",
+      },
+    ],
+    workExperience: [
+      {
+        company: "Tech Solutions Inc.",
+        position: "Senior Software Engineer",
+        startDate: "Jan 2022",
+        endDate: "Present",
+        description: [
+          "Lead a team of 6 engineers to deliver enterprise SaaS products.",
+          "Architected and implemented a microservices-based backend.",
+          "Mentored junior developers and conducted code reviews.",
+        ],
+      },
+      {
+        company: "Webify Corp.",
+        position: "Frontend Developer",
+        startDate: "Jun 2019",
+        endDate: "Dec 2021",
+        description: [
+          "Developed responsive React applications for e-commerce clients.",
+          "Optimized UI performance and accessibility.",
+          "Collaborated with designers to improve user experience.",
+        ],
+      },
+      {
+        company: "Startup Hub",
+        position: "Software Engineer Intern",
+        startDate: "May 2018",
+        endDate: "Aug 2018",
+        description: [
+          "Built MVP features for a social networking app.",
+          "Wrote unit and integration tests to ensure code quality.",
+          "Presented project demos to stakeholders.",
+        ],
+      },
+    ],
+    projects: [
+      {
+        title: "Open Source Dashboard",
+        description:
+          "Created a customizable analytics dashboard using React and D3.js.",
+      },
+    ],
+    skills: [
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Node.js",
+      "Python",
+      "SQL",
+      "Docker",
+      "AWS",
+    ],
+    certifications: [
+      {
+        title: "AWS Certified Solutions Architect",
+        issuer: "Amazon Web Services",
+        date: "2021",
+      },
+    ],
   });
 
   return (
@@ -42,7 +124,7 @@ function App() {
         </h1>
       </div>
       <div className="flex">
-        <div className="w-1/2 p-8">
+        <div className="w-1/2 p-8 overflow-y-scroll max-h-screen">
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">Input</h2>
           <p className="text-gray-600 mb-4">Enter your resume details here.</p>
           <div className="resume-form">
@@ -52,7 +134,7 @@ function App() {
                 <h3 className="text-lg font-semibold p-4 bg-gray-200 border-b-1 text-blue-600 border-gray-400">
                   Personal Information
                 </h3>
-                <div className="form-group p-4 border-gray-200">
+                <div className="form-group px-4 border-gray-200">
                   <label className="font-bold" htmlFor="name">
                     Name
                   </label>
@@ -68,7 +150,7 @@ function App() {
                     required
                   />
                 </div>
-                <div className="form-group p-4 border-gray-200">
+                <div className="form-group px-4 border-gray-200">
                   <label className="font-bold" htmlFor="email">
                     Email
                   </label>
@@ -84,7 +166,7 @@ function App() {
                     required
                   />
                 </div>
-                <div className="form-group p-4 border-gray-200">
+                <div className="form-group px-4 border-gray-200">
                   <label className="font-bold" htmlFor="phone">
                     Phone
                   </label>
@@ -100,7 +182,7 @@ function App() {
                     required
                   />
                 </div>
-                <div className="form-group p-4 border-gray-200">
+                <div className="form-group px-4 border-gray-200">
                   <label className="font-bold" htmlFor="location">
                     Location
                   </label>
@@ -116,7 +198,7 @@ function App() {
                     value={resumeData.location}
                   />
                 </div>
-                <div className="form-group p-4 border-gray-200">
+                <div className="form-group px-4 border-gray-200">
                   <label className="font-bold" htmlFor="linkedin">
                     LinkedIn
                   </label>
@@ -132,7 +214,7 @@ function App() {
                     value={resumeData.linkedin}
                   />
                 </div>
-                <div className="form-group p-4 border-gray-200">
+                <div className="form-group px-4 border-gray-200">
                   <label className="font-bold" htmlFor="github">
                     GitHub
                   </label>
